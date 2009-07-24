@@ -24,7 +24,7 @@ v1.0 (2006)
 
 The first 12 sectors of every PS2 game disc contain the PS2 boot logo in a
 slightly encrypted form. You can use ps2logo to decrypt a sector dump, and then
-open the logo in a picture viewer.
+convert the raw image to JPEG or whatever.
 
 For more information, I recommend reading doc/ps2boot.txt written by loser.
 
@@ -57,6 +57,9 @@ Decrypt encrypted logo in <input file> to <output file>.
    Sample
 ---======---
 
+This sample is for Linux users. On Windows, you can use Hex Workshop to dump the
+sectors and Paint Shop Pro to convert the image, for instance.
+
 To extract the logo from a PS2 game disc, do the following:
 
 Dump the first 12 sectors of the disc:
@@ -65,12 +68,13 @@ $ dd if=/dev/cdrom of=logo.enc bs=2048 count=12
 Decrypt the sector dump:
 $ ps2logo logo.enc logo.raw
 
-Then open the raw file in your picture viewer with these settings:
-- width and height: PAL 344x71, NTSC 384x64
-- one channel (grayscale)
+Use ImageMagick to convert the raw image to JPEG:
+$ convert -depth 8 -size 344x71 gray:logo.raw logo.jpg
 
-You should now see the "PlayStation(R) 2" logo.
-Optionally, save the image as JPEG, for instance.
+Note that the image width and height depend on the region: 344x71 for PAL and
+384x64 for NTSC.
+
+Open the file in a picture viewer and you should finally see the PS2 logo...
 
 
 ---=======---
