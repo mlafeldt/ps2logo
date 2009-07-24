@@ -1,8 +1,20 @@
 /*
- * PS2 Logo Cryptor - decrypt/encrypt a sector dump of the PS2 logo
- * (C) Copyright 2006 Mathias Lafeldt/Xope Systems
+ * ps2logo.c - decrypt/encrypt sector dump of PS2 logo
  *
- * NOTE: Most of this is based on the "ps2boot.txt" document by loser.
+ * Copyright (C) 2006, 2009 misfire <misfire@xploderfreax.de>
+ *
+ * ps2logo is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * ps2logo is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with ps2logo.  If not, see <http://www.gnu.org/licenses/>.
  */
 
 #include <stdio.h>

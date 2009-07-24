@@ -1,0 +1,90 @@
+---=============================---
+   ps2logo - PS2 Logo Cryptor
+   Copyright (C) 2006, 2009 misfire
+---================================---
+
+
+Welcome to ps2logo! This program will decrypt/encrypt a sector dump of the PS2
+logo for you.
+
+
+---============---
+   Version history
+---===============---
+
+v1.1 (Jul xx 2009)
+* Initial public release
+
+v1.0 (2006)
+* Private build
+
+
+---==========---
+   About ps2logo
+---=============---
+
+
+Most of this is based on the "ps2boot.txt" document by loser.
+
+
+
+---==---
+   Build
+---=====---
+
+To compile ps2logo, you need CMake and a C compiler like gcc.
+I recommend doing an out-of-source build:
+$ mkdir build
+$ cd build
+$ cmake ../src/
+$ make
+
+To install ps2logo:
+# make install
+
+
+---==---
+   Usage
+---=====---
+
+usage: ps2logo <input file> <output file>
+
+
+---=====--
+   Samples
+---=======---
+
+TODO
+
+
+---=======---
+   Disclaimer
+---==========---
+
+THIS PROGRAM IS NOT LICENSED, ENDORSED, NOR SPONSORED BY SONY COMPUTER
+ENTERTAINMENT, INC. ALL TRADEMARKS ARE PROPERTY OF THEIR RESPECTIVE OWNERS.
+
+ps2logo comes with ABSOLUTELY NO WARRANTY. It is covered by the GNU General
+Public License. Please see file COPYING for further information.
+
+
+---===========---
+   Special thanks
+---==============---
+
+To loser
+
+
+---====---
+   Contact
+---=======---
+
+misfire [AT] xploderfreax [DOT] de
+
+If you enjoy ps2logo, please consider a PayPal donation to my e-mail address
+above. Thank you.
+
+
+---======================---
+   HACKING NEEDS TO BE FREE!
+---=========================---
