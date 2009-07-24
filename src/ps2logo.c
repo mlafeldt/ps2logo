@@ -1,5 +1,5 @@
 /*
- * PS2 Logo Cryptor
+ * PS2 Logo Cryptor - decrypt/encrypt a sector dump of the PS2 logo
  * (C) Copyright 2006 Mathias Lafeldt/Xope Systems
  *
  * NOTE: Most of this is based on the "ps2boot.txt" document by loser.
@@ -10,45 +10,16 @@
 #include <string.h>
 
 #define APP_NAME	"PS2 Logo Cryptor"
-#define APP_VERSION	"1.0"
+#define APP_VERSION	"1.1"
 
-// Size of the PS2 logo in bytes
-#define LOGO_SIZE	(12*2048) // 12 sectors x 2048 bytes
+/* Size of PS2 logo in bytes: 12 sectors x 2048 bytes */
+#define LOGO_SIZE	(12*2048)
 
-// Program's modes
-enum {
-	MODE_DECRYPT, // default
-	MODE_ENCRYPT
-};
+/* Static encryption key */
+#define ENC_KEY		0xA4
 
 
-/*
- * Displays the application's name and version, and a copyright notice.
- */
-void ShowBanner(void)
-{
-	printf(APP_NAME" v"APP_VERSION"\n");
-	printf("(C) 2006 M. Lafeldt/Xope Systems\n\n");
-}
-
-/*
- * Displays how to use the program.
- */
-void ShowUsage(void)
-{
-	printf("Usage: ps2logo <input file> <output file> [-e key]\n");
-	printf(" Decrypts/encrypts a sector dump of the PS2 logo.\n");
-	printf(" Options are:\n");
-	printf("  -e\tEncrypt logo with given key (hex byte) [0...FF]\n");
-}
-
-/*
- * Encrypts each pixel in the logo.
- *
- * args:	buffer with logo
- *		encryption key
- */
-void EncryptLogo(unsigned char *logo, unsigned char key)
+static void encrypt_logo(unsigned char *logo, unsigned char key)
 {
 	int i;
 
@@ -56,13 +27,7 @@ void EncryptLogo(unsigned char *logo, unsigned char key)
 		logo[i] = ((logo[i] << 5) | (logo[i] >> 3)) ^ key;
 }
 
-/*
- * Decrypts each pixel in the logo.
- *
- * args:	buffer with logo
- *		decryption key
- */
-void DecryptLogo(unsigned char *logo, unsigned char key)
+static void decrypt_logo(unsigned char *logo, unsigned char key)
 {
 	int i;
 
@@ -74,61 +39,48 @@ void DecryptLogo(unsigned char *logo, unsigned char key)
 
 int main(int argc, char *argv[])
 {
-	FILE *fp;
+	FILE *fp = NULL;
 	unsigned char logo[LOGO_SIZE];
-	int mode = MODE_DECRYPT;
-	unsigned char key = 0;
+	unsigned char key;
 
-	ShowBanner();
-
-	// Check arguments
 	if (argc < 3) {
-		ShowUsage();
-		return -1;
+		fprintf(stderr, "usage: %s <input file> <output file>\n", argv[0]);
+		return EXIT_FAILURE;
 	}
 
-	if ((argc == 5) && !strcmp(argv[3], "-e")) {
-		sscanf(argv[4], "%02hhx", &key);
-		mode = MODE_ENCRYPT;
-	}
-
-	// Open input file
 	fp = fopen(argv[1], "rb");
 	if (fp == NULL) {
-		fprintf(stderr, "Error: Can't open file '%s' for reading\n", argv[1]);
-		return -2;
+		fprintf(stderr, "Error: could not open input file '%s'\n", argv[1]);
+		return EXIT_FAILURE;
 	}
 
-	// Read logo from input file into buffer
 	if (fread(logo, LOGO_SIZE, 1, fp) != LOGO_SIZE) {
+		fprintf(stderr, "Error: could not read logo from input file\n");
 		fclose(fp);
-		return -3;
+		return EXIT_FAILURE;
 	}
-	fclose(fp);
 
-	// Open output file
+	fclose(fp);
 	fp = fopen(argv[2], "wb");
 	if (fp == NULL) {
-		fprintf(stderr, "Error: Can't open file '%s' for writing\n", argv[2]);
-		return -4;
+		fprintf(stderr, "Error: could not open output file '%s'\n", argv[2]);
+		return EXIT_FAILURE;
 	}
 
-	// Decrypt/encrypt logo
-	if (mode == MODE_DECRYPT) {
-		// Due to the nature of the scheme it's very simple to get the decryption key.
+	if (*(unsigned int*)logo != 0x00000000) {
 		key = logo[0];
-		printf("Decrypting logo (key = 0x%02X) ... ", key);
-		DecryptLogo(logo, key);
+		printf("Decrypting logo with key 0x%02x ... ", key);
+		decrypt_logo(logo, key);
 	} else {
-		printf("Encrypting logo (key = 0x%02X) ... ", key);
-		EncryptLogo(logo, key);
+		key = ENC_KEY;
+		printf("Encrypting logo with key 0x%02x ... ", key);
+		encrypt_logo(logo, key);
 	}
 
-	// Write result to output file
 	fwrite(logo, LOGO_SIZE, 1, fp);
 	fclose(fp);
 
-	printf("Done!\n");
+	printf("done.\n");
 
-	return 0;
+	return EXIT_SUCCESS;
 }
