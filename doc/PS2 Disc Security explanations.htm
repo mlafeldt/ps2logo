@@ -1,0 +1,1162 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html dir="ltr" lang="en"><head>
+
+
+<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<meta name="generator" content="vBulletin 3.5.0"><title>PS2 Scene Forums - PS2 Disc Security explanations?</title>
+
+<style type="text/css">
+<!--
+td, p, li, div
+{
+	font: 10pt verdana, geneva, lucida, 'lucida grande', arial, helvetica, sans-serif;
+}
+.smallfont
+{
+	font-size: 11px;
+}
+.tborder
+{
+	border: 1px solid #808080;
+}
+.thead
+{
+	background-color: #EEEEEE;
+}
+.page
+{
+	background-color: #FFFFFF;
+	color: #000000;
+}
+-->
+</style></head><body class="page">
+
+<br>
+
+<div>
+	<a href="http://www.ps2-scene.org/forums/index.php" accesskey="1"><strong>PS2 Scene Forums</strong></a>
+	(<span class="smallfont"><em>http://www.ps2-scene.org/forums/index.php</em></span>)
+</div>
+<div>
+	- &nbsp; <a href="http://www.ps2-scene.org/forums/forumdisplay.php?f=20"><strong>PS2 General Discussion</strong></a>
+	(<span class="smallfont"><em>http://www.ps2-scene.org/forums/forumdisplay.php?f=20</em></span>)
+</div>
+<div>
+	- &nbsp; - &nbsp; <a href="http://www.ps2-scene.org/forums/showthread.php?t=50245" accesskey="3"><strong>PS2 Disc Security explanations?</strong></a>
+	(<span class="smallfont"><em>http://www.ps2-scene.org/forums/showthread.php?t=50245</em></span>)
+</div>
+
+<br>
+
+<table class="tborder" border="0" cellpadding="6" cellspacing="1" width="100%">
+<tbody><tr>
+	<td class="page">
+
+		<table border="0" cellpadding="0" cellspacing="0" width="100%">
+		<tbody><tr valign="bottom">
+			<td style="font-size: 14pt;">ebob</td>
+			<td class="smallfont" align="right">11-10-2006 07:59 AM</td>
+		</tr>
+		</tbody></table>
+
+		<hr>
+
+
+			<div><strong>PS2 Disc Security explanations?</strong><br>&nbsp;</div>
+
+
+
+		<div>Hello,
+I'm curious on primarily the differences between the PS2 disc security
+compared to psx, and how that difference is related to the standard
+modchips we see, with a DVD controller hack, a bios hack, and SCEX
+signal input.<br>
+<br>
+I don't have an extremely technical understanding of optical disc
+technology, but my understanding is that the PSX discs contain data in
+the wobble area that standard cd drives can't read. The psx decodes
+this information as a string of 4 characters, "S,C,E,A" for ntsc US,
+for instance. A psx modchip inputs this signal. For instance, a simple
+4 wire mod consists of a wire for ground, power, SCEX input, and the
+final wire blocks the real result being read from the disc. For
+instance, a copy or import would not return "S,C,E,A".<br>
+<br>
+Now, the PS2 is obviously more complicated. Not only is a simple 4, or
+8 for that matter, wire mod sufficient, we also have two kinds of
+optical discs with apparently different security features. However,
+both systems have had pressed boot discs created by various sources. Of
+course there is Datel, who produced bootable psx, ps2 cd and dvd. Then
+there are companies like success (I realize there's probably a good
+deal of dislike towards them here. I understand why, but trying not to
+focus on that aspect of them if possible) who seem to have stolen the
+methods directly from datel. For instance, they seem to use crazy taxi
+for ps2 cdr, or at least they did.<br>
+<br>
+I've heard it said that the PS2 protection differs from PSX in that
+different discs have different data in the usually unreadable sectors
+of the disc. It was said that the boot data is dependant on the SLxS
+(elf) filename on the disc. No more information was provided. But, it
+would make sense of the fact that the crazy taxi slus number was reused
+by datel a number of times, and even success. There's the theory that
+maybe it would help prevent the blocking of that specific title, but
+why not use a different SLUS shared by sony in that case?<br>
+<br>
+(There was once a website up with images of the gameshark disc as it
+was worn down, showing the splicing of the boot sector area and the
+normal disc. This website disappeared quickly, and I've never seen it
+since. Anyone got a mirror?) <br>
+<br>
+So, where do the modchips come in to play? I've browsed through the ICE
+source, and grasped a bit of it, but I'm no asm expert. There are read
+routines manipulated by bios patching, and control of so much of the
+boot process. And of course its clear where the SCEx data is determined
+and sent. <br>
+<br>
+But what about the DVD controller? That seems to be where the action is
+at. After all, there was never the booting of an import or direct
+booting of a dvdr before origa came up with the dvd controller code.
+For so long it seemed to just be ripped right from them. But by this
+point there is clearly understanding, and replication of the coding
+itself. If I recall the ICE code, a block of data (hexidecimal in the
+code, I believe) is sent to the dvd controller. The only faint guess my
+noninformed mind can come up with is that if indeed the elf filename
+issue is true, the controller is sent this same block of code no matter
+what the disc, and the bios patching will ensure that it succeeds
+despite the differences of the file name on the disc.<br>
+<br>
+I had a conversation with raptor quite a few years back, when the neo4
+was just starting to fade out. He explained the neo4 boot process (and
+reason for it not working with dvd-r discs) as a process which via bios
+patching tricked the ps2 into authenticating a ps2 cdr in the way that
+it would authenticate a psx cdr. So, the SCEx input should qualify if
+this is true. The evidence he offered of this fact was that the ps2
+browser would show a black disc if you inserted a ps2 cdr. I couldn't
+verify this, as I sold my neo4 before installing it.... for a messiah.
+(which surprisingly works to this day... I should upgrade though).<br>
+<br>
+And finally: Why on earth does (or did, in the early days at least) a
+constant stream of SCEx input allow the disc tray to be ejected without
+a complete disc security check when the next disc is inserted??? The
+old neo2 swap trick, is what I'm asking about. Whatever this more
+elaborate data on ps2 discs (as opposed to psx discs) seems to be
+needed only to boot into ps2 mode that first single time. After that,
+(unless a media type change occurs) they don't bother checking this
+mysterious elite security, and only look for the simple string known to
+the "public" for years.<br>
+<br>
+Sorry for all the questions and possible informational errors. Just
+trying to make some sense of this old system before it reaches farther
+into its golden years. :)</div>
+	</td>
+</tr>
+</tbody></table>
+<br><table class="tborder" border="0" cellpadding="6" cellspacing="1" width="100%">
+<tbody><tr>
+	<td class="page">
+
+		<table border="0" cellpadding="0" cellspacing="0" width="100%">
+		<tbody><tr valign="bottom">
+			<td style="font-size: 14pt;">kl1k</td>
+			<td class="smallfont" align="right">11-10-2006 09:17 AM</td>
+		</tr>
+		</tbody></table>
+
+		<hr>
+
+
+
+
+		<div>way over my head, but I would be interested to know as well. i didn't even know about the wobble area :)</div>
+	</td>
+</tr>
+</tbody></table>
+<br><table class="tborder" border="0" cellpadding="6" cellspacing="1" width="100%">
+<tbody><tr>
+	<td class="page">
+
+		<table border="0" cellpadding="0" cellspacing="0" width="100%">
+		<tbody><tr valign="bottom">
+			<td style="font-size: 14pt;">ebob</td>
+			<td class="smallfont" align="right">11-11-2006 11:16 PM</td>
+		</tr>
+		</tbody></table>
+
+		<hr>
+
+
+
+
+		<div>Hmmm...
+seems no one really knows around here. Not surprised, they're not
+easily answered hehe. Figured maybe one of the few people with such
+knowledge would happen by. Anyone know of another place with perhaps
+better luck in which I could ask?</div>
+	</td>
+</tr>
+</tbody></table>
+<br><table class="tborder" border="0" cellpadding="6" cellspacing="1" width="100%">
+<tbody><tr>
+	<td class="page">
+
+		<table border="0" cellpadding="0" cellspacing="0" width="100%">
+		<tbody><tr valign="bottom">
+			<td style="font-size: 14pt;">Ex-Cyber</td>
+			<td class="smallfont" align="right">11-12-2006 04:05 AM</td>
+		</tr>
+		</tbody></table>
+
+		<hr>
+
+
+
+
+		<div>This
+is more or less how it was explained to me (the guy who explained this
+to me has an account here but I don't know how often he visits). This
+is also from memory so I could be messing some things up:<br>
+<br>
+- PS2 and PSX both use the same basic "wobble code" scheme, from a physical standpoint<br>
+<br>
+- PS2 games contain the "PlayStation 2" logo you see at boot in an
+encrypted form (in the standard bootstrap area I think, but not sure)<br>
+<br>
+- The key to decrypt this is stored in the "wobble code area", itself
+encrypted with a key generated from the product number (SLUS/SLES/SLPS
+number) which is encoded into the name of the boot ELF.<br>
+<br>
+- The mechacon can't readily distinguish between CD-R and CD-ROM, but can distinguish among the various types of DVD media<br>
+<br>
+So when booting a PSX game, all you have to do is inject the
+appropriate SCEX stream into the wobble decoder output, and you're
+done. With a PS2 game, you have to:<br>
+<br>
+- Inject SCEX into the wobble decoder output (wobble decoder output; only needed for CD?)<br>
+<br>
+- Patch the media type reported by the mechacon (mechacon bus; only needed for DVD)<br>
+<br>
+- Bypass/fix the logo decryption process (BIOS; needed for PS2 games but not PSX)<br>
+<br>
+Chips such as the Neo2 only inject the SCEX stream and open/close the
+tray; the media type and logo decoding is bypassed by using the real
+thing.<br>
+<br>
+In other words, to have a non-swap solution you have to patch three
+different processes implemented in three different chips. This is why
+mods suddenly went from 6 wires to 20+ wires.<br>
+<br>
+I've only skimmed some sources, so I can't directly vouch for the
+details of the above process, but it does explain several things that
+had puzzled me, such as:<br>
+<br>
+- As you mention, virtually all unauthorized PS2 CDs use the product
+number for Crazy Taxi, presumably because the encrypted key/logo data
+used was originally ripped directly from a Crazy Taxi disc and used
+as-is.<br>
+<br>
+- Some of the less polished modchips caused a corrupted PS2 logo at boot.<br>
+<br>
+- The discrepancies between PSX/PS2 mode support and CD/DVD support in various chips.<br>
+<br>
+- There's a version of the Ice code that requires no mechacon connections, but can't boot DVD copies.<br>
+<br>
+As for why the full authentication is not done on a disc swap, it's
+probably because the mechacon can't decrypt the logo on its own (lack
+of program space and/or processing power perhaps).</div>
+	</td>
+</tr>
+</tbody></table>
+<br><table class="tborder" border="0" cellpadding="6" cellspacing="1" width="100%">
+<tbody><tr>
+	<td class="page">
+
+		<table border="0" cellpadding="0" cellspacing="0" width="100%">
+		<tbody><tr valign="bottom">
+			<td style="font-size: 14pt;">ebob</td>
+			<td class="smallfont" align="right">11-12-2006 07:01 AM</td>
+		</tr>
+		</tbody></table>
+
+		<hr>
+
+
+
+
+		<div>Wow!<br>
+<br>
+Great post. Flaws or not, it helps make things quite a bit clearer.<br>
+<br>
+I do vaguely recall the logo patching tool requiring the elf filename.
+So, the same image would be different data on two discs with different
+SLxS filenames?<br>
+<br>
+I'll have to take a look at the ice code with the logo stuff in mind. I
+really hadn't even considered it as being anything important. I
+remember patching PSX logos, and figured it was simillar. The first
+patched logos I've seen on either system were Paradox ones, when using
+a trainer, etc. In fact, when the ps2 first came out, paradox had a
+patcher to use UT or gameshark. It would be another year until we'd see
+direct bootup (and hence the boot image). When I got my messiah, I put
+the paradox patched game in, and saw their logo instead of Playstation
+2. Heh, they knew no one would see it booting with a gameshark, but
+they put it in anyway, having obviously used dev hardware to view it.<br>
+<br>
+It must be a relatively simple encryption if it is done by all mods and these patching programs.<br>
+<br>
+This makes sense. So, the origa patched the disc details, simillarly to
+a modded 360 reporting the wrong disc type back to the console. It told
+the system, "hey, this here is a japanese disc", or whatever. So, the
+origa surely had an scex wire? Didn't remember that.<br>
+<br>
+And yes, the gameshark hack worked because none of the logo stuff mattered after the initial booting.<br>
+<br>
+"- Some of the less polished modchips caused a corrupted PS2 logo at boot."<br>
+<br>
+Perhaps instead of correctly working out the encryption algorithm to be
+compatible with any disc, they simply patched the bios to make the ps2
+satisfied with any result? So, you get either garbage on the screen, or
+perhaps the actual encrypted image.<br>
+<br>
+And my final mystery: Does anyone have any understanding of how the
+FFXI harddrive patches the system? I have a messiah, and when booting
+with the HD in, it (after taking about 8 seconds longer to boot)
+patches my console to act as if it were retail, not booting DVD-R or
+CD-R games. It clearly loads up a different dashboard as well, which is
+capable of showing the hdd memory. So, does it essentially load up a
+new bios from the harddrive? Has this been looked into for
+exploitability? As in, custom ROM on the harddrive that is actually
+loaded up instead of the system rom? PSX copies work, so it's probably
+just the bios indeed. Running an original import would probably further
+confirm this.<br>
+<br>
+I also have a little trick to boot ps2 CD-R discs for when I want to
+use ps2link, and am too lazy to unscrew the network adapter and remove
+the harddrive. All you need to do is boot up a psx game. the blue
+screen comes in, and it zooms in and fades away as normal. Right after
+this (and before it would give the PSX logo) you press eject. If timed
+properly, you'll end up at the unpatched dashboard, with the HD having
+not been initialized. This is because it was ejected after the disc was
+recognized as PS1 (which obviously requires no HD use) but before the
+psx exe could be loaded up. At this time you can put any copy in, and
+it will be recognized.<br>
+<br>
+And yes, I realize the simpler method: Stop using that modchip made almost 5 years ago! :)</div>
+	</td>
+</tr>
+</tbody></table>
+<br><table class="tborder" border="0" cellpadding="6" cellspacing="1" width="100%">
+<tbody><tr>
+	<td class="page">
+
+		<table border="0" cellpadding="0" cellspacing="0" width="100%">
+		<tbody><tr valign="bottom">
+			<td style="font-size: 14pt;">Unfinity</td>
+			<td class="smallfont" align="right">11-13-2006 01:01 AM</td>
+		</tr>
+		</tbody></table>
+
+		<hr>
+
+
+
+
+		<div>PS1
+protection(SCEx) does use the wobble, PS2 does not. This can be
+verified by injecting the SCEx signal while a PS2 original is being
+authenticated. If both used the wobble, the SCEx signal would interfere
+with the disc authentication or authenticate the disc as PS1, but it
+doesn't. How the key *is* actually encoded in the disc, I don't know.<br>
+<br>
+The logo stuff is similar in PS1 and PS2. The logo is embedded in the
+first 16 sectors of the disc. For PS2, it's also encrypted using a
+combination of "Rotate Left 5" and XOR of the 5th byte of the key with
+each byte of the logo. Since backups do not contain key information(and
+mods can't truly inject the key data) the decryption will fail to
+generate the true logo. Once decrypted, a checksum is performed on the
+data. For US consoles, the checksum is ignored. For E/J consoles, if
+the sums don't match, the disc will not be booted. Some mods simply
+patch the checksum comparison. Other mods guess the 5th byte of the key
+based on the fact that the first byte(pixel) of the logo is always
+black(0x00). 0x00 XOR key5 = key5. Thus a small patch can be applied
+which performs the actual XOR decryption.<br>
+<br>
+Origa did have an SCEx wire.<br>
+<br>
+Here's a little bit of C(semi-pseudo) to show how the decryption patches work:<br>
+<br>
+assuming key5 is an 8-bit integer and that logo is an array of "n_bytes" 8-bit integers...<br>
+<br>
+key5 = logo[0];<br>
+for(i = 0; i &lt; n_bytes; i++)<br>
+    logo[i] ^= key5;</div>
+	</td>
+</tr>
+</tbody></table>
+<br><table class="tborder" border="0" cellpadding="6" cellspacing="1" width="100%">
+<tbody><tr>
+	<td class="page">
+
+		<table border="0" cellpadding="0" cellspacing="0" width="100%">
+		<tbody><tr valign="bottom">
+			<td style="font-size: 14pt;">ebob</td>
+			<td class="smallfont" align="right">11-13-2006 01:24 AM</td>
+		</tr>
+		</tbody></table>
+
+		<hr>
+
+
+
+
+		<div>"If both used the wobble, the SCEx signal would interfere with the disc authentication or authenticate the disc as PS1"<br>
+<br>
+Doesn't it though? I don't think it will attempt to boot it as a ps1
+game unless the system.cnf suggests to do so, but it will interfere
+with the booting, right? I recall the neokey (the most 'senseless' of
+all scex injecting ps2 mods) needed to be removed from the usb port
+when booting the gameshark, but inserted after the gameshark boots.<br>
+<br>
+I'm again confused as to why the SCEx signal allows ejecting with the
+gameshark, though, without complete authentication, while obviously
+without an SCEx signal, it will do the complete check.</div>
+	</td>
+</tr>
+</tbody></table>
+<br><table class="tborder" border="0" cellpadding="6" cellspacing="1" width="100%">
+<tbody><tr>
+	<td class="page">
+
+		<table border="0" cellpadding="0" cellspacing="0" width="100%">
+		<tbody><tr valign="bottom">
+			<td style="font-size: 14pt;">Unfinity</td>
+			<td class="smallfont" align="right">11-13-2006 08:22 AM</td>
+		</tr>
+		</tbody></table>
+
+		<hr>
+
+
+
+
+		<div><div style="margin: 5px 20px 20px;">
+	<div class="smallfont" style="margin-bottom: 2px;">Quote:</div>
+	<table border="0" cellpadding="6" cellspacing="0" width="100%">
+	<tbody><tr>
+		<td class="alt2">
+			<hr>
+
+				<div>Originally Posted by <strong>ebob</strong></div>
+				<div style="font-style: italic;">"If both used the wobble, the SCEx signal would interfere with the disc authentication or authenticate the disc as PS1"<br>
+<br>
+Doesn't it though? I don't think it will attempt to boot it as a ps1
+game unless the system.cnf suggests to do so, but it will interfere
+with the booting, right? I recall the neokey (the most 'senseless' of
+all scex injecting ps2 mods) needed to be removed from the usb port
+when booting the gameshark, but inserted after the gameshark boots.<br>
+<br>
+I'm again confused as to why the SCEx signal allows ejecting with the
+gameshark, though, without complete authentication, while obviously
+without an SCEx signal, it will do the complete check.</div>
+
+			<hr>
+		</td>
+	</tr>
+	</tbody></table>
+</div>
+<br>
+Bad SCEx generation can cause inteference with reading of the actual disc which is why that neokey crap needed to be removed.<br>
+<br>
+The system software determines disc type based solely on the "disk
+type" the CD/DVD hardware says the disc is. "autoboot" mods work by
+determining the disc type based on contents(if the disc has no
+SYSTEM.CNF, it's assumed DVD movie. if it has system.cnf and that
+contains a "BOOT2 =" line, assume PS2 else PS1.<br>
+<br>
+<div style="margin: 5px 20px 20px;">
+	<div class="smallfont" style="margin-bottom: 2px;">Quote:</div>
+	<table border="0" cellpadding="6" cellspacing="0" width="100%">
+	<tbody><tr>
+		<td class="alt2">
+			<hr>
+
+				<div>Originally Posted by <strong>ebob</strong></div>
+				<div style="font-style: italic;">
+I'm again confused as to why the SCEx signal allows ejecting with the
+gameshark, though, without complete authentication, while obviously
+without an SCEx signal, it will do the complete check.</div>
+
+			<hr>
+		</td>
+	</tr>
+	</tbody></table>
+</div>
+<br>
+I don't understand what you mean there... :confused:</div>
+	</td>
+</tr>
+</tbody></table>
+<br><table class="tborder" border="0" cellpadding="6" cellspacing="1" width="100%">
+<tbody><tr>
+	<td class="page">
+
+		<table border="0" cellpadding="0" cellspacing="0" width="100%">
+		<tbody><tr valign="bottom">
+			<td style="font-size: 14pt;">ebob</td>
+			<td class="smallfont" align="right">11-13-2006 05:16 PM</td>
+		</tr>
+		</tbody></table>
+
+		<hr>
+
+
+
+
+		<div>I'm speaking of the neo2 generation mods, or the neokey crap for that matter.<br>
+<br>
+If you boot up a gameshark, and eject the disc (without a modded
+system) and put your copy in, the system will attempt to authenticate
+the disc, and fail. And, in the case of a dvd-r, fail a media type
+check as well it seems.<br>
+<br>
+But, sending copious amounts of constant SCEx signal into the ps2, an
+eject can be performed, and the next disc loaded in no problem. Even
+the LBA limitation of the gameshark doesn't matter, unlike a modless
+swap trick. The media type check seems to be performed as well, as in
+order to boot a dvd-r, one needs to put in a dvd by pressing eject and
+inserting an original (large capacity) dvd, and using a forced eject
+method to open the drive without the ps2 knowing.<br>
+<br>
+Basically I'm just wondering why the SCEx signal, of all things, is
+allowing this magic to happen. Is it just like you said? "Bad SCEx
+generation can cause inteference with reading of the actual disc..."
+Does the system just get garbage in response, and not qualify it as a
+failed authentication?<br>
+<br>
+Obviously, once the noswap mods came around, no one used the
+gameshark/neo2 combination on new consoles. Would it even be possible
+on the later ps2's? People seem to spend money on fliptop crap, but if
+I were going to swap, I'd prefer a proper eject, and a ridiculously
+easy-to-install modchip to a fugly cheap plastic case.</div>
+	</td>
+</tr>
+</tbody></table>
+<br><table class="tborder" border="0" cellpadding="6" cellspacing="1" width="100%">
+<tbody><tr>
+	<td class="page">
+
+		<table border="0" cellpadding="0" cellspacing="0" width="100%">
+		<tbody><tr valign="bottom">
+			<td style="font-size: 14pt;">Unfinity</td>
+			<td class="smallfont" align="right">11-13-2006 09:02 PM</td>
+		</tr>
+		</tbody></table>
+
+		<hr>
+
+
+
+
+		<div>aaaahhh, ok now I get what you mean and the answer is kinda simple.<br>
+<br>
+Since the OSDSYS "browser" software needs to be able to access PS1 and
+PS2 discs for reading to parse the SYSTEM.CNF file and determine the
+BOOT file the CD/DVD hardware will allow you to perform all the same
+commands on a PS1 disc as you can on a PS2 disc. What the Neo chips did
+was to authenticate PS2 CD games as PS1 discs. So you'd eject the disc
+and insert your CD backup. The chip sends the SCEx signal and causes
+the CD/DVD hardware to authenticate as a PS1 disc. GS/AR assumed that
+the disc inserted was PS2 regardless of the disc type. As long as the
+disc authenticates, AR can read it and boot it. The dreaded "EA
+protection" in some games was the game itself checking what type of
+disc was inserted in the drive. Since the disc was authenticated as PS1
+CD, if the game expected PS2 CD/DVD it would choke. And regarding the
+LBA thing, this doesn't apply since you're letting the PS2 see that the
+disc was ejected so it will redetect the media and LBAs and such.<br>
+<br>
+Now about DVD.. The CD/DVD hardware seems to be smart enough to know
+that there is no such thing as an official PS1 DVD. It will NOT allow
+you to authenticate a DVD disc as PS1, it ignores the SCEx signal when
+DVD medias are inserted. That was why you had to use a lame eject thing
+for DVD discs.<br>
+<br>
+The DVD-R check was introduced in v8. It's a check done by the
+Mechacon(one of the 2 main CD/DVD ICs) where it will forbid the disc if
+the "Book Type" is different than DVD-ROM. Chips work around this by
+forcing all DVD medias to return a DVD-ROM booktype. You can actually
+get around the need to connect the additional wires needed for patching
+booktype by using medias that you can "bitset" to DVD-ROM booktype such
+as DVD+R and DVD+RW and doing so when burning the disc.</div>
+	</td>
+</tr>
+</tbody></table>
+<br><table class="tborder" border="0" cellpadding="6" cellspacing="1" width="100%">
+<tbody><tr>
+	<td class="page">
+
+		<table border="0" cellpadding="0" cellspacing="0" width="100%">
+		<tbody><tr valign="bottom">
+			<td style="font-size: 14pt;">Ex-Cyber</td>
+			<td class="smallfont" align="right">11-13-2006 09:43 PM</td>
+		</tr>
+		</tbody></table>
+
+		<hr>
+
+
+
+
+		<div><div style="margin: 5px 20px 20px;">
+	<div class="smallfont" style="margin-bottom: 2px;">Quote:</div>
+	<table border="0" cellpadding="6" cellspacing="0" width="100%">
+	<tbody><tr>
+		<td class="alt2">
+			<hr>
+
+				<div>Originally Posted by <strong>Unfinity</strong></div>
+				<div style="font-style: italic;">The DVD-R check was introduced in v8. It's a check done by the Mechacon.</div>
+
+			<hr>
+		</td>
+	</tr>
+	</tbody></table>
+</div>If that's the case, why do pre-V8 consoles have mechacon points on the install diagrams? Why couldn't they just be left off?</div>
+	</td>
+</tr>
+</tbody></table>
+<br><table class="tborder" border="0" cellpadding="6" cellspacing="1" width="100%">
+<tbody><tr>
+	<td class="page">
+
+		<table border="0" cellpadding="0" cellspacing="0" width="100%">
+		<tbody><tr valign="bottom">
+			<td style="font-size: 14pt;">ebob</td>
+			<td class="smallfont" align="right">11-13-2006 10:52 PM</td>
+		</tr>
+		</tbody></table>
+
+		<hr>
+
+
+
+
+		<div>Good
+question. Is there maybe just an extra check introduced in later
+versions? I don't remember the +r wire being introduced until later
+revisions.</div>
+	</td>
+</tr>
+</tbody></table>
+<br><table class="tborder" border="0" cellpadding="6" cellspacing="1" width="100%">
+<tbody><tr>
+	<td class="page">
+
+		<table border="0" cellpadding="0" cellspacing="0" width="100%">
+		<tbody><tr valign="bottom">
+			<td style="font-size: 14pt;">Unfinity</td>
+			<td class="smallfont" align="right">11-14-2006 09:19 PM</td>
+		</tr>
+		</tbody></table>
+
+		<hr>
+
+
+
+
+		<div>The
+Mechacon is the IC which makes the decision if a disc is authentic or
+not. Besides the DVD book type check it also does the basic disc key
+checks. You only need 2 wires(3 for Jap) connected to the mechacon-dsp
+data bus for basic disc authentication plus one for the bus "clock".
+However the bus is 8-bit(so 8 pins) which means that 5-6 of the data
+lines which aren't being patched. Some of those bits are needed to
+patch the Book Type byte when it passes over the bus, thus more wires
+are needed if the console checks book type.</div>
+	</td>
+</tr>
+</tbody></table>
+<br><table class="tborder" border="0" cellpadding="6" cellspacing="1" width="100%">
+<tbody><tr>
+	<td class="page">
+
+		<table border="0" cellpadding="0" cellspacing="0" width="100%">
+		<tbody><tr valign="bottom">
+			<td style="font-size: 14pt;">l_oliveira</td>
+			<td class="smallfont" align="right">11-15-2006 03:35 AM</td>
+		</tr>
+		</tbody></table>
+
+		<hr>
+
+
+
+
+		<div>PS2
+Authentication ocurs on the Mechanics controller data bus. Hence the
+A,B,C,D,E,F,G,h and I wires (remember Origa chip ? It was the first
+chip to exploit the mechanics controller that way.)<br>
+<br>
+By what I know, there's two physical protections on PS2 discs one being
+the wooble in the TOC area (does implement region lockout with this and
+this is what the A-I wires do defeat) and a "Disc-ID" feature which is
+used to check if the disc is a valid PS2 disc. I imagine the Disc ID
+data is encoded, again as a wooble but at the PS2 logo area. I imagine
+the PS2 logo encryption is a software protection and is meant to avoid
+modification of the logo, removal or exchange of the bootstrap elf
+file. And even old discs without online play like for example Ridge
+Racer 5 do have a Disc ID which can be something like 00 80 00 00 00
+00, for example. A non PS2 disc returns only 0s. Again this is what
+makes me think the Disc ID and PS2 logo protections were what we had to
+bypass using a gameshark disc to get Origa into booting copies. Else it
+would only boot retail discs from all regions.<br>
+<br>
+By patching the bios you remove the Disc ID check (CDVDMAN),
+Playstation 2 logo (PS2LOGO) and the browser (OSD.SYS) protections,
+making the mechacon patch enough to cause the disc to boot.<br>
+<br>
+Neo 4 had a serious flaw. It did contain a 64kbyte EPROM which
+contained portions of patched copyrighted code from Sony and that's why
+they got sued so fast. Mesiah chips in other hand combined the idea of
+the Origa brothers for the mechanics controller with a new method of
+patching (what we use today, the patching on the fly) ;)</div>
+	</td>
+</tr>
+</tbody></table>
+<br><table class="tborder" border="0" cellpadding="6" cellspacing="1" width="100%">
+<tbody><tr>
+	<td class="page">
+
+		<table border="0" cellpadding="0" cellspacing="0" width="100%">
+		<tbody><tr valign="bottom">
+			<td style="font-size: 14pt;">ebob</td>
+			<td class="smallfont" align="right">11-15-2006 03:40 AM</td>
+		</tr>
+		</tbody></table>
+
+		<hr>
+
+
+
+
+		<div>You're
+right about the difference between messiah and neo4. But they were sued
+at the same time, and only Channeltech decided to fight it, and they
+lost miserably. Neo continues to disallow the speaking of modchips for
+sony systems on their forums. Xbox, on the other hand, they allow.
+Why-ever might they want to do that? :)</div>
+	</td>
+</tr>
+</tbody></table>
+<br><table class="tborder" border="0" cellpadding="6" cellspacing="1" width="100%">
+<tbody><tr>
+	<td class="page">
+
+		<table border="0" cellpadding="0" cellspacing="0" width="100%">
+		<tbody><tr valign="bottom">
+			<td style="font-size: 14pt;">Unfinity</td>
+			<td class="smallfont" align="right">11-15-2006 07:39 AM</td>
+		</tr>
+		</tbody></table>
+
+		<hr>
+
+
+
+
+		<div><div style="margin: 5px 20px 20px;">
+	<div class="smallfont" style="margin-bottom: 2px;">Quote:</div>
+	<table border="0" cellpadding="6" cellspacing="0" width="100%">
+	<tbody><tr>
+		<td class="alt2">
+			<hr>
+
+				<div>Originally Posted by <strong>l_oliveira</strong></div>
+				<div style="font-style: italic;">PS2
+Authentication ocurs on the Mechanics controller data bus. Hence the
+A,B,C,D,E,F,G,h and I wires (remember Origa chip ? It was the first
+chip to exploit the mechanics controller that way.)<br>
+<br>
+By what I know, there's two physical protections on PS2 discs one being
+the wooble in the TOC area (does implement region lockout with this and
+this is what the A-I wires do defeat) and a "Disc-ID" feature which is
+used to check if the disc is a valid PS2 disc. I imagine the Disc ID
+data is encoded, again as a wooble but at the PS2 logo area. I imagine
+the PS2 logo encryption is a software protection and is meant to avoid
+modification of the logo, removal or exchange of the bootstrap elf
+file. And even old discs without online play like for example Ridge
+Racer 5 do have a Disc ID which can be something like 00 80 00 00 00
+00, for example. A non PS2 disc returns only 0s. Again this is what
+makes me think the Disc ID and PS2 logo protections were what we had to
+bypass using a gameshark disc to get Origa into booting copies. Else it
+would only boot retail discs from all regions.<br>
+<br>
+By patching the bios you remove the Disc ID check (CDVDMAN),
+Playstation 2 logo (PS2LOGO) and the browser (OSD.SYS) protections,
+making the mechacon patch enough to cause the disc to boot.<br>
+<br>
+Neo 4 had a serious flaw. It did contain a 64kbyte EPROM which
+contained portions of patched copyrighted code from Sony and that's why
+they got sued so fast. Mesiah chips in other hand combined the idea of
+the Origa brothers for the mechanics controller with a new method of
+patching (what we use today, the patching on the fly) ;)</div>
+
+			<hr>
+		</td>
+	</tr>
+	</tbody></table>
+</div>
+<br>
+You're wrong on a few points. First of all, there are not 2 protections
+in the disc. There's a single protection, the disc key(or ID if you
+want). This key is the SKU, like SLES-12345 which has been scrambled
+then encoded into physical sectors 75 to 4170. Any one of those sectors
+can be used to get the key but OSDSYS only checks PSN 75. The key is
+the same on each of those sectors. DNAS-protected games have 2 pieces
+of additional data encoded in their keys, a "unique id" which is just a
+number and an additional region code. The DNAS portion is not used for
+disc verification by the PS2 itself at all, it is simply supplied to
+the DNAS server when requested.<br>
+<br>
+Discs can contain more keys though, encoded in sectors beyond that
+range. All the Sony Utility Discs, such as DVD player upgrade and HDD
+upgrade, have extra keys encoded in them which actually decode to be a
+LBA number that the software uses for loading additional encrypted code
+that isn't visible in the file system. Those are the only discs which
+have this.<br>
+<br>
+I don't know where you got your information on the Neo4 but that's
+completely off. First of all it was a 4K PROM, not 64K. It did not
+contain Sony code. You can find the source code for Neo4 floating
+around the net, comparison will show you that it's a replacement for
+the BIOS reset vectors and it doesn't correspond to the actual Sony
+code. Neo and Messiah both got sued, it had nothing to do with
+copyright material. UK laws are very specific in that they ban devices
+with the sole purpose of facilitating the playback of backups or
+imports. Neo was smart not to fight Sony, they had no legal ground to
+stand on since they basically advertised their chip as being a way to
+pirate games. So did Messiah though they tried to change their tune
+later in the game.<br>
+<br>
+The only part of the protection scheme I don't know for sure is how the
+key data is encoded into the disc. Since I can't say for sure, I won't
+argue about the wobble thing even though my own tests have shown me
+that it isn't encoded as a wobble in the track.<br>
+<br>
+Anyway, enough about PS2.  Who's going to tell us how the PS3 protection works? :D</div>
+	</td>
+</tr>
+</tbody></table>
+<br><table class="tborder" border="0" cellpadding="6" cellspacing="1" width="100%">
+<tbody><tr>
+	<td class="page">
+
+		<table border="0" cellpadding="0" cellspacing="0" width="100%">
+		<tbody><tr valign="bottom">
+			<td style="font-size: 14pt;">l_oliveira</td>
+			<td class="smallfont" align="right">11-15-2006 02:11 PM</td>
+		</tr>
+		</tbody></table>
+
+		<hr>
+
+
+
+
+		<div>I'm
+sure at least the fist part of the protection (which you say is
+inexistent, I say it's used only to give regional restriction) is
+similar to what were present on PS1 discs, But is read in a diferent
+manner. Hence it going through the mechanics controller bus. The PS1
+signal goes through a serial line. And again the eprom in the neo4 was
+64 kilobits (my mistake) which is 8 kilobytes. (27C64) It also had a
+PIC which send the SCEx signal and a PLD device to replace certain
+areas of the rom with the code in the eprom. Some code in the eprom
+were cut out of the PS2 rom, patched then put again in the eprom.
+That's what I meant.<br>
+<br>
+About PS3, ask Ken himself ? I seriously expect to see that all the
+security related buses are now checksumed, encrypted or hidden inside
+the chips ... ;)<br>
+<br>
+And your explanation about the security helped me to understand this
+thing a little better. I didn't knew it was possible to hid more keys
+inside of the disc. I wonder if the PS2 IOP can tell the DVD drive
+where in the disc it should check for the keys ...</div>
+	</td>
+</tr>
+</tbody></table>
+<br><table class="tborder" border="0" cellpadding="6" cellspacing="1" width="100%">
+<tbody><tr>
+	<td class="page">
+
+		<table border="0" cellpadding="0" cellspacing="0" width="100%">
+		<tbody><tr valign="bottom">
+			<td style="font-size: 14pt;">Unfinity</td>
+			<td class="smallfont" align="right">11-15-2006 10:20 PM</td>
+		</tr>
+		</tbody></table>
+
+		<hr>
+
+
+
+
+		<div>Software
+can indeed read keys from any part of the disc though the mechacon will
+only do the initial key check(the one the determines if the disc is
+non-import, non-backup) on physical sector 75.<br>
+<br>
+You should keep in mind that the SKU has a region code embedded in it,
+thus the key does. For example you have SLESxxxxx, SLUSxxxxx, SLPSxxxxx
+for the 3 regions. The code inside the mechacon should be something
+like: "if a key exists and is for this region continue, otherwise block
+the disc."<br>
+<br>
+regarding the Neo4, you're right about the PROM. It does appear to be
+an 8kbyte PROM, not 4kbyte. However I've compared the reset vector in
+the real BIOS to the one used in Neo4 and it's completely different.
+Some of the functionality seems to be the same but the code looks like
+it was rewritten, not just patched, and alot of stuff added.</div>
+	</td>
+</tr>
+</tbody></table>
+<br><table class="tborder" border="0" cellpadding="6" cellspacing="1" width="100%">
+<tbody><tr>
+	<td class="page">
+
+		<table border="0" cellpadding="0" cellspacing="0" width="100%">
+		<tbody><tr valign="bottom">
+			<td style="font-size: 14pt;">l_oliveira</td>
+			<td class="smallfont" align="right">11-15-2006 11:41 PM</td>
+		</tr>
+		</tbody></table>
+
+		<hr>
+
+
+
+
+		<div>Couldn't
+it be something other than the starting elf name ? Because all discs
+which install drivers seem to have their starting elf named as PBPX
+regardless of region.<br>
+<br>
+For example the U.S. HDD Utility disc 1.0 is PBPX 95216<br>
+And funny enough the 1.10 is SCUS 97395 (goes by what you say)<br>
+<br>
+So what I think is that there might be a fixed binary tag inside the
+key not related to the elf name but making the region fixed. So after
+the information you gave me , you made me wonder if just is the PS2
+being capable of reading the same protection in a programable manner.
+Which makes the protection/lock even more interesting .... hehehe<br>
+<br>
+And just to add more information JP HDD Utility disc 1.00 is PBPX 95211,<br>
+PSBBN 0.20 is SCPN 60130 so probably they're free to use any name they like for disc start.</div>
+	</td>
+</tr>
+</tbody></table>
+<br><table class="tborder" border="0" cellpadding="6" cellspacing="1" width="100%">
+<tbody><tr>
+	<td class="page">
+
+		<table border="0" cellpadding="0" cellspacing="0" width="100%">
+		<tbody><tr valign="bottom">
+			<td style="font-size: 14pt;">Unfinity</td>
+			<td class="smallfont" align="right">11-16-2006 12:31 AM</td>
+		</tr>
+		</tbody></table>
+
+		<hr>
+
+
+
+
+		<div>The
+key is definately based on the SKU, however you do make a valid point
+about the utility discs. Does an original import PBPX disc RSOD when
+you put it in a console for a foreign region? I'm not sure where my
+utility discs have gone so I can't test that one myself.</div>
+	</td>
+</tr>
+</tbody></table>
+<br><table class="tborder" border="0" cellpadding="6" cellspacing="1" width="100%">
+<tbody><tr>
+	<td class="page">
+
+		<table border="0" cellpadding="0" cellspacing="0" width="100%">
+		<tbody><tr valign="bottom">
+			<td style="font-size: 14pt;">l_oliveira</td>
+			<td class="smallfont" align="right">11-16-2006 03:09 AM</td>
+		</tr>
+		</tbody></table>
+
+		<hr>
+
+
+
+
+		<div>They
+do. And even if they boot, for example a NTSC J console for China does
+have a diferent magic gate key than a JP one so a JP utility disc will
+boot but will then crash in a black screen because the console can't
+decode the encrypted elf whick boots the disc.<br>
+<br>
+Same reason why a european console will never boot a US HDD utility
+disc evebn with a modchip. A modded US console can boot a copy of the
+utility disc though</div>
+	</td>
+</tr>
+</tbody></table>
+<br><table class="tborder" border="0" cellpadding="6" cellspacing="1" width="100%">
+<tbody><tr>
+	<td class="page">
+
+		<table border="0" cellpadding="0" cellspacing="0" width="100%">
+		<tbody><tr valign="bottom">
+			<td style="font-size: 14pt;">Unfinity</td>
+			<td class="smallfont" align="right">11-16-2006 06:01 AM</td>
+		</tr>
+		</tbody></table>
+
+		<hr>
+
+
+
+
+		<div>Not
+only is the ELF encrypted using MG, they also encrypt the raw binary
+that the ELF reads from the CD using MG and a second pass of simple XOR
+encryption done in software.<br>
+<br>
+So PBPX discs are a bit of a mystery then in regard to the region encoding.  Wonder if we'll ever know how that part works...</div>
+	</td>
+</tr>
+</tbody></table>
+<br><table class="tborder" border="0" cellpadding="6" cellspacing="1" width="100%">
+<tbody><tr>
+	<td class="page">
+
+		<table border="0" cellpadding="0" cellspacing="0" width="100%">
+		<tbody><tr valign="bottom">
+			<td style="font-size: 14pt;">l_oliveira</td>
+			<td class="smallfont" align="right">11-16-2006 12:57 PM</td>
+		</tr>
+		</tbody></table>
+
+		<hr>
+
+
+
+
+		<div>You mean the VOB file it reads from a folder in the disc during the boot ?<br>
+<br>
+I have a decrypted file from the hdd utility disc disc, which means
+someone figured out this stuff completely, already or just cheated and
+"stole the candy" from the child by dumping the PS2 RAM while running
+the utility disc... hehehe</div>
+	</td>
+</tr>
+</tbody></table>
+<br><table class="tborder" border="0" cellpadding="6" cellspacing="1" width="100%">
+<tbody><tr>
+	<td class="page">
+
+		<table border="0" cellpadding="0" cellspacing="0" width="100%">
+		<tbody><tr valign="bottom">
+			<td style="font-size: 14pt;">unclejun</td>
+			<td class="smallfont" align="right">11-16-2006 05:10 PM</td>
+		</tr>
+		</tbody></table>
+
+		<hr>
+
+
+
+
+		<div>A reference for the product number: <a href="http://mirage.just-size.net/slps/num.html" target="_blank">http://mirage.just-size.net/slps/num.html</a><br>
+<br>
+Sony can use any name for the executable(a lot of japanese trial or bonus discs are PAPX or PCPX):<br>
+<a href="http://mirage.just-size.net/slps/taiken.html" target="_blank">http://mirage.just-size.net/slps/taiken.html</a></div>
+	</td>
+</tr>
+</tbody></table>
+<br><table class="tborder" border="0" cellpadding="6" cellspacing="1" width="100%">
+<tbody><tr>
+	<td class="page">
+
+		<table border="0" cellpadding="0" cellspacing="0" width="100%">
+		<tbody><tr valign="bottom">
+			<td style="font-size: 14pt;">l_oliveira</td>
+			<td class="smallfont" align="right">11-16-2006 07:27 PM</td>
+		</tr>
+		</tbody></table>
+
+		<hr>
+
+
+
+
+		<div><div style="margin: 5px 20px 20px;">
+	<div class="smallfont" style="margin-bottom: 2px;">Quote:</div>
+	<table border="0" cellpadding="6" cellspacing="0" width="100%">
+	<tbody><tr>
+		<td class="alt2">
+			<hr>
+
+				<div>Originally Posted by <strong>unclejun</strong></div>
+				<div style="font-style: italic;">A reference for the product number: <a href="http://mirage.just-size.net/slps/num.html" target="_blank">http://mirage.just-size.net/slps/num.html</a><br>
+<br>
+Sony can use any name for the executable(a lot of japanese trial or bonus discs are PAPX or PCPX):<br>
+<a href="http://mirage.just-size.net/slps/taiken.html" target="_blank">http://mirage.just-size.net/slps/taiken.html</a></div>
+
+			<hr>
+		</td>
+	</tr>
+	</tbody></table>
+</div>
+<br>
+<br>
+The best thing about the site is the explanation about the meaning of
+each letter on the code Sony uses on the game code name.... :)</div>
+	</td>
+</tr>
+</tbody></table>
+<br><table class="tborder" border="0" cellpadding="6" cellspacing="1" width="100%">
+<tbody><tr>
+	<td class="page">
+
+		<table border="0" cellpadding="0" cellspacing="0" width="100%">
+		<tbody><tr valign="bottom">
+			<td style="font-size: 14pt;">unclejun</td>
+			<td class="smallfont" align="right">11-16-2006 07:56 PM</td>
+		</tr>
+		</tbody></table>
+
+		<hr>
+
+
+
+
+		<div>That's why I posted the link!</div>
+	</td>
+</tr>
+</tbody></table>
+<br>
+
+<br>
+
+<table border="0" cellpadding="0" cellspacing="0" width="100%">
+<tbody><tr valign="top">
+	<td class="smallfont">All times are GMT +1. The time now is <span class="time">01:04 PM</span>.</td>
+	<td align="right">
+		<div class="smallfont"></div>
+
+	</td>
+</tr>
+</tbody></table>
+
+<p class="smallfont" align="center">
+	Powered by vBulletin Version 3.5.0<br>Copyright ©2000 - 2006, Jelsoft Enterprises Ltd.
+	<br>
+	Copyright ©2006 ps2-scene.org<br> Portions of this site are protected under the Creative Commons license.<br>We are in no way affiliated with Sony Computer Entertainment<br>As this is a public forum, we are not responsible for content.<br>All posted content is Copyright of their respective owners.
+</p>
+
+</body></html>

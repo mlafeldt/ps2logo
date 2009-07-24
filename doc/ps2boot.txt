@@ -1,0 +1,247 @@
+oO information on the contents of the ps2 boot sectors Oo
+  - thrown together by loser, finished in july 2002 -
+
+
+:: intro
+the 'boot sectors' of a disc (cd or dvd) refer to the first 16 sectors on a
+disc (sectors 0 to 15). these can contain system specific data or just left
+empty. on an official ps2 disc they contain the 'Playstation 2' logo shown
+when booting a disc. a ps2 'master disc' (a disc used for product testing)
+contains some extra information. the logo details and master disc info is
+discussed in more detail below.
+
+note: all mentions of sectors below relates to the 2048 bytes of user data
+available in each sector. the sectors headers and footers are standard for a
+mode 2/form 1 data sector.
+
+
+:: ps2 boot logo
+the first 12 sectors contain the ps2 boot logo (sectors 0 to 11). on a normal
+ps2 disc, a disc that isnt a master disc, the other 4 boot sectors
+(sectors 12 to 15) are filled with zeros.
+
+the dimensions of the logo are slightly different depending on whether it is
+on a pal or ntsc disc. the pal logo is 344 pixels wide and 71 pixels high.
+the ntsc logo is 384 pixels wide and 64 pixels high. both logos are raw, 8bit
+grayscale where 0x00=black and 0xFF=white.
+
+the dimensions of the ntsc logo allow it to fit exactly into the first 12
+sectors (384*64 = 12*2048 = 24576), however the pal logo falls short by
+152 bytes (344*71 = 24424). this 'extra' 152 bytes is not used and is therefore
+filled with zeros.
+
+the logo is not inserted 'as is' however, it is encrypted slightly by
+individually shifting each byte a little and then XORing the result with a
+magic number generated from the exe filename. at the end of this doc are
+some functions in c code to show youhow this is done.
+
+
+:: ps2 master disc format
+final versions of games are burnt as master discs on regular cd-rs and are
+submitted to sony for licensing and releasing.
+
+official ps2 developers have special debug ps2s that cant boot burnt discs
+ONLY if they are master disc images. by ensuring that an image has the
+correctly formatted master disc sectors, it can be booted on a debug ps2.
+!!! THIS WILL NOT LET YOU IN ANY WAY PLAY COPIES ON A NORMAL PS2 !!!
+
+a master disc has the encrypted logo as usual in its first 12 sectors, but
+then instead of having 4 empty sectors, it has 2 master disc sectors
+(sectors 12 and 13) and then 2 empty sectors (sectors 14 and 15).
+
+the 2 master disc sectors are actually jsut the same sector repeated twice.
+the layout for this sector is as follows:
+
+note 1: the format of the japanese master disc sector has so many differences
+to the usa and europe format that it is shown seperately.
+
+note 2: BCD means Binary Coded Decimal encoding
+
+
+AMERICA, EUROPE and WORLD regions
+
+offset      length      description
+-------------------------------------------------------------------------------
+  0           32        disc name (eg SLES-01234) 4 capital letters, then a
+                        dash, followed by 5 numbers (padded with spaces)
+ 32           32        producer name    (padded with spaces)
+ 64           32        copyright holder (padded with spaces)
+ 96            4        year BCD  (eg 0x2002 = 2002)
+100            2        month BCD (eg 0x08   = august)
+102            2        day BCD   (eg 0x18   = 18th day of the month)
+104           24        "PlayStation Master Disc "
+128            1        playstation version:  0x01=psx, 0x02=ps2
+129            1        region:    0x00=none, 0x02=usa, 0x04=europe, 0x07=world
+130            1        0x00
+131            1        disc type: 0x01=cd,   0x02=dvd
+--if disc is a cd--
+132          124        filled with spaces (0x20)
+--if disc is a dvd--
+132            1        0x01
+133            1        0x00
+134            4        ((((num_image_sectors+15)/16)*16)-1)
+                        // uses integer division to round the total number of
+                        // sectors in an image up to nearest 16 sectors
+                        // then sutract 1
+138            4        0x00000000
+142          114        filled with spaces (0x20)
+--both discs--  
+256            1        0x01
+257            8        0xFFFFFFFFFFFFFFFF
+265            4        magic number 2 (explained below)
+269            1        magic number 1 (explained below)
+270            2        0x0000
+272            1        0x01
+273            4        0x0000004B
+277            4        0x0000104A
+281            4        magic number 2 (explained below)
+285            1        magic number 1 (explained below)
+286            2        0x0000
+288            1        0x03
+289            4        0x0000004B
+293            4        0x0000104A
+297            4        0x00000000
+301            1        magic number 3 (explained below)
+302            2        0x0000
+304            4        0x00000000
+308            4        0x00000000
+312            4        0x00000000
+316            4        0x00000000
+320          448        0x00
+768           48        filled with spaces (0x20)
+816           16        "CDVDGEN x.xx    " (x.xx is the version number eg 1.20)
+828         1216        filled with spaces (0x20)
+
+
+
+JAPAN region
+
+offset      length      description
+-------------------------------------------------------------------------------
+  0           32        disc name (eg SLES-01234) 4 capital letters, then a
+                        dash, followed by 5 numbers (padded with spaces)
+ 32           32        producer name    (padded with spaces)
+ 64           32        copyright holder (padded with spaces)
+ 96            4        year BCD  (eg 0x2002 = 2002)
+100            2        month BCD (eg 0x08   = august)
+102            2        day BCD   (eg 0x18   = 18th day of the month)
+104           24        "PlayStation Master Disc "
+128            1        playstation version:  0x01=psx, 0x02=ps2
+129            1        region:    0x01=japan
+130            1        0x30
+131            1        disc type: 0x01=cd,   0x02=dvd
+--if disc is a cd--
+132          124        filled with spaces (0x20)
+--if disc is a dvd--
+132            1        0x01
+133            1        0x00
+134            4        ((((num_image_sectors+15)/16)*16)-1)
+                        // uses integer division to round the total number of
+                        // sectors in an image up to nearest 16 sectors
+                        // then sutract 1
+138            4        0x00000000
+142          114        filled with spaces (0x20)
+--both discs--
+256            1        0x01
+257            8        0xFFFFFFFFFFFFFFFF
+265            4        magic number 2 (explained below)
+269            1        magic number 1 (explained below)
+270            2        0x0000
+272            1        0x02
+273            8        0xFFFFFFFFFFFFFFFF
+281            4        0x00000000
+285            1        0x80
+286            2        0x0000
+288            1        0x01
+289            4        0x0000004B
+293            4        0x0000104A
+297            4        magic number 2 (explained below)
+301            1        magic number 1 (explained below)
+302            2        0x0000
+304            1        0x03
+305            4        0x0000004B
+309            4        0x0000104A
+313            4        0x00000000
+317            1        magic number 3 (explained below)
+318            1        0x00
+319            1        0x80
+320          448        0x00
+768           48        filled with spaces (0x20)
+816           16        "CDVDGEN x.xx    " (x.xx is the version number eg 1.20)
+828         1216        filled with spaces (0x20)
+
+
+:: source code
+the following is c source code for computing the various 'magic numbers' used
+as well as for encrypting the ps2 logo.
+
+
+///////////////////////////////////////////////////////////
+// this calculates the 3 magic numbers mentioned above
+// 
+// args:    discNameLetters: 4 letters from the discname (eg SLES)
+//              (the letters must be between A and Z, capital letters only)
+//          discNameNumbers: the disc number (eg 12345)
+//              (the disc number must be between 0 and 99999)
+//          magic1: placeholder for magic number 1
+//          magic2: placeholder for magic number 2
+//          magic3: placeholder for magic number 3
+// returns: true  if ok
+//          false if error
+bool calcMagicNums(char discNameLetters[4], int discNameNumbers, unsigned char *magic1, unsigned int *magic2, unsigned char *magic3)
+{
+    unsigned int letters=0;
+    unsigned int numbers=0;
+
+    // check discname letters to make sure they are valid
+    for(int i=0; i<4; i++)
+        if(discNameLetters[i] < 'A' || discNameLetters[i] > 'Z')
+            return false;
+    // check discname numbers to make sure they are valid
+    if(discNameNumbers < 0 || discNameNumbers > 99999)
+        return false;
+    
+    // make letters fit into a single u_int
+    letters =   (unsigned int)(discNameLetters[3]<< 0) | (unsigned int)(discNameLetters[2]<< 7) |
+                (unsigned int)(discNameLetters[1]<<14) | (unsigned int)(discNameLetters[0]<<21);
+    // number already fits into a u_int
+    numbers = discNameNumbers;
+
+    // calculate magic numbers
+    *magic1 = ((numbers &  0x1F) <<  3) | ((0x0FFFFFFF & letters) >> 25);
+    *magic2 = ( numbers          >> 10) | ((0x0FFFFFFF & letters) <<  7);
+    *magic3 = ((numbers & 0x3E0) >>  2) | 0x04;
+    
+    return true;
+}
+
+
+///////////////////////////////////////////////////////////
+// encrypts the raw ps2 logo
+// 
+// args:    logo: pointer to raw logo in memory (12*2048bytes)
+//          discNameLetters: 4 letters from the discname (eg SLES)
+//              (the letters must be between A and Z, capital letters only)
+//          discNameNumbers: the disc number (eg 12345)
+//              (the disc number must be between 0 and 99999)
+// returns: true  if ok
+//          false if error
+bool EncryptLogo(unsigned char *logo, char discNameLetters[4], int discNameNumbers)
+{
+    unsigned char magicNum=0, magic3=0;
+    unsigned int magic2=0;
+    
+    // calculate the magic number needed for XORing
+    if(!calcMagicNums(discNameLetters, discNameNumbers, &magicNum, &magic2, &magic3))
+        return false;
+    
+    // individually encrypt each pixel in the logo
+    // (even the extra bytes at the end of the pal logo)
+    for(int i=0; i<12*2048; i++)
+    {
+        logo[i] = ((logo[i]<<5)|(logo[i]>>3)) ^ magicNum;
+    }
+    
+    return true;
+}
+

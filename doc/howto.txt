@@ -1,0 +1,12 @@
+
+How to extract the PS2 logo from a PS2 game disc (CD/DVD)?
+
+- use Hex Workshop to dump the first 12 sectors (0 to 11) of the disc to the
+  file sectordump.bin
+- decrypt sectordump.bin with ps2logo; name of the output file: logo.raw
+- open logo.raw in Paint Shop Pro, set width and height (PAL: 344x71, NTSC:
+  384x64), one channel (grayscale)
+- you should now see the "PlayStation(R) 2" logo
+- save the image as JPEG, for instance
+
+EOF
