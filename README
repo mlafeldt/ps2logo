@@ -1,11 +1,10 @@
 ---=============================---
-   ps2logo - PS2 Logo Cryptor
+   ps2logo - PS2 Logo Decryptor
    Copyright (C) 2006, 2009 misfire
 ---================================---
 
 
-Welcome to ps2logo! This program will decrypt/encrypt a sector dump of the PS2
-logo for you.
+Welcome to ps2logo! This program will decrypt a sector dump of the PS2 logo.
 
 
 ---============---
@@ -23,9 +22,11 @@ v1.0 (2006)
    About ps2logo
 ---=============---
 
+The first 12 sectors of every PS2 game disc contain the PS2 boot logo in a
+slightly encrypted form. You can use ps2logo to decrypt a sector dump, and then
+open the logo in a picture viewer.
 
-Most of this is based on the "ps2boot.txt" document by loser.
-
+For more information, I recommend reading doc/ps2boot.txt written by loser.
 
 
 ---==---
@@ -56,6 +57,16 @@ usage: ps2logo <input file> <output file>
 
 TODO
 
+How to extract the PS2 logo from a PS2 game disc (CD/DVD)?
+
+- use Hex Workshop to dump the first 12 sectors (0 to 11) of the disc to the
+  file sectordump.bin
+- decrypt sectordump.bin with ps2logo; name of the output file: logo.raw
+- open logo.raw in Paint Shop Pro, set width and height (PAL: 344x71, NTSC:
+  384x64), one channel (grayscale)
+- you should now see the "PlayStation(R) 2" logo
+- save the image as JPEG, for instance
+
 
 ---=======---
    Disclaimer
@@ -72,7 +83,7 @@ Public License. Please see file COPYING for further information.
    Special thanks
 ---==============---
 
-To loser
+Many thanks to loser for his excellent document.
 
 
 ---====---

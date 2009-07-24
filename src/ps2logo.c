@@ -1,5 +1,5 @@
 /*
- * ps2logo.c - decrypt/encrypt sector dump of PS2 logo
+ * ps2logo.c - decrypt sector dump of PS2 logo
  *
  * Copyright (C) 2006, 2009 misfire <misfire@xploderfreax.de>
  *
@@ -19,7 +19,6 @@
 
 #include <stdio.h>
 #include <stdlib.h>
-#include <string.h>
 
 #define APP_NAME	"PS2 Logo Cryptor"
 #define APP_VERSION	"1.1"
@@ -27,10 +26,8 @@
 /* Size of PS2 logo in bytes: 12 sectors x 2048 bytes */
 #define LOGO_SIZE	(12*2048)
 
-/* Static encryption key */
-#define ENC_KEY		0xA4
 
-
+#if 0
 static void encrypt_logo(unsigned char *logo, unsigned char key)
 {
 	int i;
@@ -38,6 +35,7 @@ static void encrypt_logo(unsigned char *logo, unsigned char key)
 	for (i = 0; i < LOGO_SIZE; i++)
 		logo[i] = ((logo[i] << 5) | (logo[i] >> 3)) ^ key;
 }
+#endif
 
 static void decrypt_logo(unsigned char *logo, unsigned char key)
 {
@@ -79,15 +77,9 @@ int main(int argc, char *argv[])
 		return EXIT_FAILURE;
 	}
 
-	if (*(unsigned int*)logo != 0x00000000) {
-		key = logo[0];
-		printf("Decrypting logo with key 0x%02x ... ", key);
-		decrypt_logo(logo, key);
-	} else {
-		key = ENC_KEY;
-		printf("Encrypting logo with key 0x%02x ... ", key);
-		encrypt_logo(logo, key);
-	}
+	key = logo[0];
+	printf("Decrypting logo with key 0x%02x ... ", key);
+	decrypt_logo(logo, key);
 
 	fwrite(logo, LOGO_SIZE, 1, fp);
 	fclose(fp);
