@@ -24,7 +24,7 @@
 #define APP_VERSION	"1.1"
 
 /* Size of PS2 logo in bytes: 12 sectors x 2048 bytes */
-#define LOGO_SIZE	(12*2048)
+#define LOGO_SIZE	(12 * 2048)
 
 
 #if 0
@@ -64,7 +64,7 @@ int main(int argc, char *argv[])
 		return EXIT_FAILURE;
 	}
 
-	if (fread(logo, LOGO_SIZE, 1, fp) != LOGO_SIZE) {
+	if (fread(logo, LOGO_SIZE, 1, fp) != 1) {
 		fprintf(stderr, "Error: could not read logo from input file\n");
 		fclose(fp);
 		return EXIT_FAILURE;
