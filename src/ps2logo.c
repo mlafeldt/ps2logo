@@ -37,8 +37,9 @@ static void encrypt_logo(unsigned char *logo, unsigned char key)
 }
 #endif
 
-static void decrypt_logo(unsigned char *logo, unsigned char key)
+static void decrypt_logo(unsigned char *logo)
 {
+	unsigned char key = logo[0];
 	int i;
 
 	for (i = 0; i < LOGO_SIZE; i++) {
@@ -51,7 +52,6 @@ int main(int argc, char *argv[])
 {
 	FILE *fp = NULL;
 	unsigned char logo[LOGO_SIZE];
-	unsigned char key;
 
 	if (argc < 3) {
 		fprintf(stderr, "usage: %s <input file> <output file>\n", argv[0]);
@@ -77,14 +77,9 @@ int main(int argc, char *argv[])
 		return EXIT_FAILURE;
 	}
 
-	key = logo[0];
-	printf("Decrypting logo with key 0x%02x ... ", key);
-	decrypt_logo(logo, key);
-
+	decrypt_logo(logo);
 	fwrite(logo, LOGO_SIZE, 1, fp);
 	fclose(fp);
-
-	printf("done.\n");
 
 	return EXIT_SUCCESS;
 }

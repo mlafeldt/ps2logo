@@ -11,7 +11,7 @@ Welcome to ps2logo! This program will decrypt a sector dump of the PS2 logo.
    Version history
 ---===============---
 
-v1.1 (Jul xx 2009)
+v1.1 (Jul 26 2009)
 * Initial public release
 
 v1.0 (2006)
@@ -57,8 +57,8 @@ Decrypt encrypted logo in <input file> to <output file>.
    Sample
 ---======---
 
-This sample is for Linux users. On Windows, you can use Hex Workshop to dump the
-sectors and Paint Shop Pro to convert the image, for instance.
+This sample is for Linux users. On Windows, you can alternatively use Hex
+Workshop to dump the sectors and Paint Shop Pro to convert the image.
 
 To extract the logo from a PS2 game disc, do the following:
 
