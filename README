@@ -33,15 +33,18 @@ For more information, I recommend reading doc/ps2boot.txt written by loser.
    Build
 ---=====---
 
-To compile ps2logo, you need CMake and a C compiler like gcc.
-I recommend doing an out-of-source build:
-$ mkdir build
-$ cd build
-$ cmake ../src/
+To build ps2logo, simply run:
 $ make
 
-To install ps2logo:
-# make install
+Of course, you can also install it:
+$ make install
+
+CMake is supported too:
+$ mkdir build
+$ cd build/
+$ cmake ..
+$ make
+$ make install
 
 
 ---==---
