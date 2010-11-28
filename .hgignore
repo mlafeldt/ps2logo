@@ -1,6 +1,0 @@
-syntax: glob
-
-build/
-logo/
-release/
-sectordumps/
