@@ -1,0 +1,13 @@
+language: go
+
+go:
+  - 1.0
+  - 1.1
+
+install: make build
+
+script: make test
+
+branches:
+  only:
+    - master

@@ -1,22 +1,23 @@
-prefix = $(HOME)
+GO = go
 
-CC = gcc
-INSTALL = install
-RM = rm -f
+all: build
 
-CFLAGS = -Wall -Werror -O2
-LDFLAGS =
+get:
+	$(GO) get -d -x ./...
 
-PROG = ps2logo
-OBJS = ps2logo.o
+build: get
+	$(GO) build -x ./...
 
-all: $(PROG)
+install: get
+	$(GO) install -x ./...
 
-$(PROG): $(OBJS)
+test_dep: get
+	$(GO) test -i -x ./...
 
-install: all
-	$(INSTALL) -d -m 755 '$(prefix)/bin/'
-	$(INSTALL) $(PROG) '$(prefix)/bin/'
+test: test_dep
+	$(GO) test -v -x ./...
 
 clean:
-	$(RM) $(PROG) $(OBJS)
+	$(GO) clean -x ./...
+
+.PHONY: all get build install test_dep test clean

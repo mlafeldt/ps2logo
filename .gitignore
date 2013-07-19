@@ -1,4 +1,1 @@
-*.exe
-*.o
-build/
-ps2logo
+/ps2logo
