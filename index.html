@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset='utf-8'>
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+
+    <link rel="stylesheet" type="text/css" href="stylesheets/stylesheet.css" media="screen" />
+    <link rel="stylesheet" type="text/css" href="stylesheets/pygment_trac.css" media="screen" />
+    <link rel="stylesheet" type="text/css" href="stylesheets/print.css" media="print" />
+
+    <title>ps2logo by mlafeldt</title>
+  </head>
+
+  <body>
+
+    <header>
+      <div class="container">
+        <h1>ps2logo</h1>
+        <h2>PS2 Logo Decryptor</h2>
+
+        <section id="downloads">
+          <a href="https://github.com/mlafeldt/ps2logo/zipball/master" class="btn">Download as .zip</a>
+          <a href="https://github.com/mlafeldt/ps2logo/tarball/master" class="btn">Download as .tar.gz</a>
+          <a href="https://github.com/mlafeldt/ps2logo" class="btn btn-github"><span class="icon"></span>View on GitHub</a>
+        </section>
+      </div>
+    </header>
+
+    <div class="container">
+      <section id="main_content">
+        <h1>
+<a name="ps2logo" class="anchor" href="#ps2logo"><span class="octicon octicon-link"></span></a>ps2logo</h1>
+
+<p>The first 12 sectors of every PS2 game disc contain the PS2 boot logo in a
+slightly encrypted form. You can use ps2logo to decrypt a sector dump, and then
+convert the raw image to JPEG or other formats.</p>
+
+<p>(For more information, I recommend reading <a href="https://github.com/mlafeldt/ps2logo/blob/master/Documentation/ps2boot.txt">ps2boot.txt</a> written by loser.)</p>
+
+<h2>
+<a name="installation" class="anchor" href="#installation"><span class="octicon octicon-link"></span></a>Installation</h2>
+
+<p>First, make sure you have <a href="http://golang.org/doc/install">Go 1</a> installed.</p>
+
+<p>To download and install ps2logo from source, simply run:</p>
+
+<pre><code>$ go get github.com/mlafeldt/ps2logo
+</code></pre>
+
+<p>This should install the ps2logo command to <code>$GOPATH/bin/ps2logo</code>.</p>
+
+<p>(You can find the original C implementation of ps2logo inside the <a href="https://github.com/mlafeldt/ps2logo/tree/master/alt">alt</a>
+directory.)</p>
+
+<h2>
+<a name="usage" class="anchor" href="#usage"><span class="octicon octicon-link"></span></a>Usage</h2>
+
+<pre><code>usage: ps2logo &lt;input file&gt; &lt;output file&gt;
+</code></pre>
+
+<p>This will decrypt the encrypted logo in <em>input file</em> and write it to <em>output
+file</em>.</p>
+
+<h2>
+<a name="example" class="anchor" href="#example"><span class="octicon octicon-link"></span></a>Example</h2>
+
+<p>This example is for Linux users. On Windows, you can alternatively use Hex
+Workshop to dump the sectors and Paint Shop Pro to convert the image.</p>
+
+<p>To extract the logo from a PS2 game disc, do the following:</p>
+
+<p>Dump the first 12 sectors of the disc:</p>
+
+<pre><code>$ dd if=/dev/cdrom of=logo.enc bs=2048 count=12
+</code></pre>
+
+<p>Decrypt the sector dump with ps2logo:</p>
+
+<pre><code>$ ps2logo logo.enc logo.raw
+</code></pre>
+
+<p>Use ImageMagick to convert the raw image to JPEG:</p>
+
+<pre><code>$ convert -depth 8 -size 344x71 gray:logo.raw logo.jpg
+</code></pre>
+
+<p>(Note that the image width and height depend on the region: 344x71 for PAL and
+384x64 for NTSC.)</p>
+
+<p>Open the file in a picture viewer and you should finally see the PS2 logo.</p>
+
+<h2>
+<a name="license" class="anchor" href="#license"><span class="octicon octicon-link"></span></a>License</h2>
+
+<p>ps2logo is licensed under the terms of the MIT License. See <a href="https://github.com/mlafeldt/ps2logo/blob/master/LICENSE">LICENSE</a> file.</p>
+
+<h2>
+<a name="contact" class="anchor" href="#contact"><span class="octicon octicon-link"></span></a>Contact</h2>
+
+<ul>
+<li>Web: <a href="http://mlafeldt.github.com/ps2logo">http://mlafeldt.github.com/ps2logo</a>
+</li>
+<li>Mail: <a href="mailto:mathias.lafeldt@gmail.com">mathias.lafeldt@gmail.com</a>
+</li>
+<li>Twitter: <a href="https://twitter.com/mlafeldt">@mlafeldt</a>
+</li>
+</ul>
+      </section>
+    </div>
+
+    
+  </body>
+</html>
