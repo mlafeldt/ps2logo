@@ -9,9 +9,6 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-#define APP_NAME	"PS2 Logo Cryptor"
-#define APP_VERSION	"1.1"
-
 /* Size of PS2 logo in bytes: 12 sectors x 2048 bytes */
 #define LOGO_SIZE	(12 * 2048)
 
