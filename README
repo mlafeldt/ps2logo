@@ -87,8 +87,7 @@ Open the file in a picture viewer and you should finally see the PS2 logo...
 THIS PROGRAM IS NOT LICENSED, ENDORSED, NOR SPONSORED BY SONY COMPUTER
 ENTERTAINMENT, INC. ALL TRADEMARKS ARE PROPERTY OF THEIR RESPECTIVE OWNERS.
 
-ps2logo comes with ABSOLUTELY NO WARRANTY. It is covered by the GNU General
-Public License. Please see file COPYING for further information.
+ps2logo is licensed under the terms of the MIT License. See LICENSE file.
 
 
 ---===========---
