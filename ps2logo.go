@@ -10,6 +10,7 @@ package main
 
 import (
 	"bufio"
+	"io"
 	"io/ioutil"
 	"log"
 	"os"
@@ -27,7 +28,7 @@ func readLogo(filename string) ([]byte, error) {
 
 	r := bufio.NewReader(f)
 	logo := make([]byte, LogoSize)
-	_, err = r.Read(logo)
+	_, err = io.ReadFull(r, logo)
 	return logo, err
 }
 
