@@ -1,0 +1,9 @@
+#!/bin/sh
+#
+# Test runner - for convenience and for use with vim-test-runner.
+#
+
+set -e
+
+go test -i ./...
+go test $GOTESTFLAGS ./...
